@@ -8,12 +8,12 @@ public class Main {
         Random rand = new Random();
         int prize = rand.nextInt(10)+1;
         Scanner scan = new Scanner(System.in);
+        System.out.println("Guess number(1-10): ");
         int number = scan.nextInt();
-        while(prize != number){
-            System.out.println("Not correct!");
+        Check check = new Check();
+        while(!Check.correct(number, prize)){
             System.out.println("Try again: ");
             number = scan.nextInt();
         }
-        System.out.println("Perfect!");
     }
 }
