@@ -12,7 +12,7 @@ public class Main {
         int number = scan.nextInt();
         Check check = new Check();
         while(!Check.correct(number, prize)){
-            System.out.println("Try again: ");
+            System.out.println("Try again(1-10): ");
             number = scan.nextInt();
         }
     }
