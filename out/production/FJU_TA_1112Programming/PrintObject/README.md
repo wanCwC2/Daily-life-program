@@ -8,3 +8,4 @@
 * 學習使用`git`及`github`。
 * 雖然我覺得一週就可以完成，但我同學覺得兩週較為適合。
 ## 執行結果
+<img src="./image/solution.png" />
