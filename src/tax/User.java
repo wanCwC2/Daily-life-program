@@ -8,7 +8,7 @@ public class User {
         final String delimiter = ",";
         try
         {
-            String filePath = "D:\\Java\\FJU_TA_1112Programming\\src\\tax\\data.csv";
+            String filePath = "D:\\Java\\FJU_TA_1112Programming\\src\\tax\\data\\test.csv";
 //            FileReader fileReader = new FileReader(filePath);
             FileInputStream fis = new FileInputStream(filePath);
             InputStreamReader isr = new InputStreamReader(fis);
