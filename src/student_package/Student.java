@@ -37,32 +37,33 @@ public class Student {
 
         int box_size = 0; //包裹總大小
         int numOfPackage = 0; //個人包裹數量
-        int cost = 0; //資費
         int numOfStudnet = 0;
-        String[][] student = new String[3][2];
+        String[][] student = new String[4][2];
         Fee fee = new Fee();
 
         for (int i = 1; i < data.length; i++) {
 
             if (data[i][0] != null) {
 
-                if (data[i][0] == data[i - 1][0]) {
+                if (data[i][0].equals(data[i-1][0])) {
                     numOfPackage += 1;
                 } else {
-                    numOfPackage = 0;
+                    student[numOfStudnet][0] = data[i][0];
+                    student[numOfStudnet][1] = "0";
+                    numOfPackage = 1;
                     numOfStudnet += 1;
                 }
 
-                if (data[i][4] == "Y") {
-                    cost += 190;
-                    if (data[i][3] == "Y") {
-                        cost -= 210;
+                if (data[i][4].equals("Y")) {
+                    student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) + 190);
+                    if (data[i][3].equals("Y")) {
+                        student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) - 210);
                     }
-                } else if (data[i][3] == "Y") {
-                    if (data[i][3].equals("四號學生專用包裹")) {
-                        cost += 80;
-                    } else if (data[i][3].equals("五號學生專用包裹")) {
-                        cost += 110;
+                } else if (data[i][3].equals("Y")) {
+                    if (data[i][1].equals("四號學生專用包裹")) {
+                        student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) + 80);
+                    } else if (data[i][1].equals("五號學生專用包裹")) {
+                        student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) + 110);
                     }
                 } else {
                     if (data[i][5].equals("上門收件")) {
@@ -83,13 +84,19 @@ public class Student {
                                     box_size += Integer.parseInt(retval);
                                 }
                         }
-                        cost += fee.useSize(box_size, data[i][6], data[i][7]);
+                        student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) + fee.useSize(box_size, data[i][6], data[i][7]));
 
                     } else if (data[i][5].equals("親至郵局窗口")) {
-                        cost += fee.useWeight(Integer.parseInt(data[i][2]), data[i][6], data[i][7]);
+                        student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) + fee.useWeight(Integer.parseInt(data[i][2]), data[i][6], data[i][7]));
                     }
-                    System.out.println(cost);
+//                    System.out.println(student[numOfStudnet-1][0]);
+//                    System.out.println(student[numOfStudnet-1][1]);
                 }
+
+
+
+                System.out.println(student[numOfStudnet-1][0]);
+                System.out.println(student[numOfStudnet-1][1]);
             }
         }
     }
