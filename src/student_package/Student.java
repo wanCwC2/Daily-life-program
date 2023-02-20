@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Student {
     public static void main(String[] args) throws FileNotFoundException {
 
-        String[][] data = new String[7][9];
+        String[][] data = new String[20][8];
         int line_len = 0;
 
         String line = "";
@@ -38,7 +38,7 @@ public class Student {
         int box_size = 0; //包裹總大小
         int numOfPackage = 0; //上門收件個人包裹數量
         int numOfStudnet = 0;
-        String[][] student = new String[4][2];
+        String[][] student = new String[10][2];
         Fee fee = new Fee();
 
         for (int i = 1; i < data.length; i++) {
@@ -85,7 +85,7 @@ public class Student {
                         student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) + fee.useSize(box_size, data[i][6], data[i][7]));
 
                     } else if (data[i][5].equals("親至郵局窗口")) {
-                        student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) + fee.useWeight(Integer.parseInt(data[i][2]), data[i][6], data[i][7]));
+                        student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) + fee.useWeight(Float.valueOf(data[i][2]), data[i][6], data[i][7]));
                     }
                 }
 
