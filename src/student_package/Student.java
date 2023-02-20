@@ -37,7 +37,7 @@ public class Student {
 
         int box_size = 0; //包裹總大小
         int numOfPackage = 0; //個人包裹數量
-        int prize = 0; //資費
+        int cost = 0; //資費
         int numOfStudnet = 0;
         String[][] student = new String[3][2];
         Fee fee = new Fee();
@@ -45,20 +45,26 @@ public class Student {
         for (int i = 1; i < data.length; i++) {
 
             if (data[i][0] != null) {
-//                System.out.println("H");
-                if (data[i][0] == data[i-1][0]) {
+
+                if (data[i][0] == data[i - 1][0]) {
                     numOfPackage += 1;
-                } else{
+                } else {
                     numOfPackage = 0;
                     numOfStudnet += 1;
                 }
 
                 if (data[i][4] == "Y") {
-                    prize += 190;
-                    if (data[i][1] == "Y") {
-                        prize -= 210;
+                    cost += 190;
+                    if (data[i][3] == "Y") {
+                        cost -= 210;
                     }
-                } else{
+                } else if (data[i][3] == "Y") {
+                    if (data[i][3].equals("四號學生專用包裹")) {
+                        cost += 80;
+                    } else if (data[i][3].equals("五號學生專用包裹")) {
+                        cost += 110;
+                    }
+                } else {
                     if (data[i][5].equals("上門收件")) {
                         switch (data[i][1]) {
                             case "四號學生專用包裹":
@@ -74,20 +80,17 @@ public class Student {
                                 box_size = 0;
                                 String str = new String(data[i][1]);
                                 for (String retval : str.split("x")) {
-//            System.out.println(retval);
                                     box_size += Integer.parseInt(retval);
                                 }
                         }
-//                        System.out.println(box_size);
-                        int area = fee.useSize(box_size, data[i][6], data[i][7]);
-                        System.out.println(area);
+                        cost += fee.useSize(box_size, data[i][6], data[i][7]);
 
-                    } else if (data[i][5] == "親至郵局窗口") {
-
+                    } else if (data[i][5].equals("親至郵局窗口")) {
+                        cost += fee.useWeight(Integer.parseInt(data[i][2]), data[i][6], data[i][7]);
                     }
+                    System.out.println(cost);
                 }
             }
         }
     }
 }
-
