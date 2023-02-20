@@ -40,25 +40,26 @@ public class Student {
         int prize = 0; //資費
         int numOfStudnet = 0;
         String[][] student = new String[3][2];
+        Fee fee = new Fee();
 
         for (int i = 1; i < data.length; i++) {
 
             if (data[i][0] != null) {
-
-                if (data[i][0] == data[i - 1][0]) {
+//                System.out.println("H");
+                if (data[i][0] == data[i-1][0]) {
                     numOfPackage += 1;
-                } else {
+                } else{
                     numOfPackage = 0;
                     numOfStudnet += 1;
                 }
+
                 if (data[i][4] == "Y") {
                     prize += 190;
                     if (data[i][1] == "Y") {
                         prize -= 210;
                     }
                 } else{
-                    if (data[i][5] == "上門收件") {
-
+                    if (data[i][5].equals("上門收件")) {
                         switch (data[i][1]) {
                             case "四號學生專用包裹":
                                 box_size = 102;
@@ -77,15 +78,14 @@ public class Student {
                                     box_size += Integer.parseInt(retval);
                                 }
                         }
-                        System.out.println(box_size);
+//                        System.out.println(box_size);
+                        int area = fee.useSize(box_size, data[i][6], data[i][7]);
+                        System.out.println(area);
 
                     } else if (data[i][5] == "親至郵局窗口") {
 
                     }
                 }
-                Fee fee = new Fee();
-                int area = fee.area(data[i][6], data[i][7]);
-                System.out.println(area);
             }
         }
     }
