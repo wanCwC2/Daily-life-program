@@ -36,7 +36,7 @@ public class Student {
         }
 
         int box_size = 0; //包裹總大小
-        int numOfPackage = 0; //個人包裹數量
+        int numOfPackage = 0; //上門收件個人包裹數量
         int numOfStudnet = 0;
         String[][] student = new String[4][2];
         Fee fee = new Fee();
@@ -45,9 +45,7 @@ public class Student {
 
             if (data[i][0] != null) {
 
-                if (data[i][0].equals(data[i-1][0])) {
-                    numOfPackage += 1;
-                } else {
+                if (!data[i][0].equals(data[i-1][0])){
                     student[numOfStudnet][0] = data[i][0];
                     student[numOfStudnet][1] = "0";
                     numOfPackage = 1;
@@ -89,14 +87,31 @@ public class Student {
                     } else if (data[i][5].equals("親至郵局窗口")) {
                         student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) + fee.useWeight(Integer.parseInt(data[i][2]), data[i][6], data[i][7]));
                     }
-//                    System.out.println(student[numOfStudnet-1][0]);
-//                    System.out.println(student[numOfStudnet-1][1]);
                 }
 
+                if (data[i][5].equals("上門收件")){
+                    if (numOfPackage < 2){
+                        student[numOfStudnet-1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet-1][1]) + 20);
+                        numOfPackage += 1;
+                    } else if (numOfPackage == 2) {
+                        numOfPackage += 1;
+                    } else if (numOfPackage > 2) {
+                        student[numOfStudnet - 1][1] = String.valueOf(Integer.parseInt(student[numOfStudnet - 1][1]) + 10);
+                        numOfPackage += 1;
+                    }
+                }
+            }
+        }
 
-
-                System.out.println(student[numOfStudnet-1][0]);
-                System.out.println(student[numOfStudnet-1][1]);
+        for (int i = 0; i < student.length; i++) {
+            if (student[i][0] != null) {
+                System.out.print(student[i][0] + "須支付");
+                if (Integer.parseInt(student[i][1]) >= 0) {
+                    System.out.print(student[i][1] + "元");
+                } else if (Integer.parseInt(student[i][1]) < 0) {
+                    System.out.print("0元");
+                }
+                System.out.println("");
             }
         }
     }
