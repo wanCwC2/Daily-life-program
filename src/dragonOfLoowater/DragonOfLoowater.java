@@ -9,10 +9,10 @@ public class DragonOfLoowater {
     public static boolean scanf(){
         numDragon = scan.nextInt();
         numKnight = scan.nextInt();
-        if (numDragon != 0 & numKnight != 0 & numDragon < 20000 & numKnight <20000){
-            return true;
+        if (numDragon == 0 & numKnight == 0){
+            return false;
         }
-        return false;
+        return true;
     }
     public static void sort(int[] array){
         boolean change = true;
@@ -31,7 +31,7 @@ public class DragonOfLoowater {
             end--;
             if (!change) break;
             change = false;
-            for (int i = end - 1; i > start; i--) {
+            for (int i = end - 1; i >= start; i--) {
                 if (array[i] > array[i+1]){
                     int temp = array[i+1];
                     array[i+1] = array[i];
@@ -42,29 +42,39 @@ public class DragonOfLoowater {
             start++;
             if(start == end) break;
         }
-        for (int i = 0; i < array.length; i++) System.out.println(array[i]);
     }
     public static void main(String[] args) {
-        int mission = 0;
+        int mission = 1;
         while(scanf()){
-            int[] dragon = new int[numDragon];
-            int[] knight = new int[numKnight];
             int cost = 0;
             int cutOffNum = 0;
-            for (int i = 0; i < numDragon; i++) dragon[i] = scan.nextInt();
-            for (int i = 0; i < numKnight; i++) knight[i] = scan.nextInt();
-            sort(dragon);
-            sort(knight);
-            for (int i = 0; i < numDragon; i++) System.out.println(dragon[i]);
-            for (int i = 0; i < numKnight; i++) {
-                if(knight[i] >= dragon[cutOffNum]){
-                    cost += knight[i];
-                    cutOffNum++;
-                    if (cutOffNum == numDragon) break;
+            if((numDragon != 0 & numKnight != 0) & (numDragon <= numKnight)) {
+                int[] dragon = new int[numDragon];
+                int[] knight = new int[numKnight];
+                for (int i = 0; i < numDragon; i++) dragon[i] = scan.nextInt();
+                for (int i = 0; i < numKnight; i++) knight[i] = scan.nextInt();
+                sort(dragon);
+                sort(knight);
+//                print(dragon);
+//                print(knight);
+                for (int i = 0; i < numKnight; i++) {
+                    if (knight[i] >= dragon[cutOffNum]) {
+                        cost += knight[i];
+                        cutOffNum++;
+                        if (cutOffNum == numDragon) break;
+                    }
                 }
             }
-            if (cutOffNum < numDragon) System.out.println("Mission" + mission + ": Loowater is doomed.");
+            if (cutOffNum < numDragon) System.out.println("Mission" + mission + ": Loowater is doomed!");
+            else if (numDragon == 0) System.out.println("Mission" + mission + ": Peace!");
             else System.out.println("Mission" + mission + ": " + cost);
+            mission++;
         }
     }
+//    public static void print(int[] array){
+//        for (int i = 0; i < array.length; i++) {
+//            System.out.print(array[i] + " ");
+//        }
+//        System.out.println();
+//    }
 }
