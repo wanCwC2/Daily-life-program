@@ -6,7 +6,7 @@ public class DragonOfLoowater {
     static int numDragon;
     static int numKnight;
     static Scanner scan = new Scanner(System.in);
-    public static boolean scanf(){
+    public static boolean scanf(){ // 判斷結束旗幟
         numDragon = scan.nextInt();
         numKnight = scan.nextInt();
         if (numDragon == 0 & numKnight == 0){
@@ -44,7 +44,7 @@ public class DragonOfLoowater {
         }
     }
     public static void main(String[] args) {
-        int mission = 1;
+        int mission = 1; // 任務數量
         while(scanf()){
             int cost = 0;
             int cutOffNum = 0;
@@ -53,10 +53,10 @@ public class DragonOfLoowater {
                 int[] knight = new int[numKnight];
                 for (int i = 0; i < numDragon; i++) dragon[i] = scan.nextInt();
                 for (int i = 0; i < numKnight; i++) knight[i] = scan.nextInt();
+                // 將龍頭大小及騎士能力值，由小到大排列
                 sort(dragon);
                 sort(knight);
-//                print(dragon);
-//                print(knight);
+                // 計算花費
                 for (int i = 0; i < numKnight; i++) {
                     if (knight[i] >= dragon[cutOffNum]) {
                         cost += knight[i];
@@ -65,16 +65,11 @@ public class DragonOfLoowater {
                     }
                 }
             }
+            // 輸出結果
             if (cutOffNum < numDragon) System.out.println("Mission" + mission + ": Loowater is doomed!");
             else if (numDragon == 0) System.out.println("Mission" + mission + ": Peace!");
             else System.out.println("Mission" + mission + ": " + cost);
             mission++;
         }
     }
-//    public static void print(int[] array){
-//        for (int i = 0; i < array.length; i++) {
-//            System.out.print(array[i] + " ");
-//        }
-//        System.out.println();
-//    }
 }
