@@ -20,7 +20,7 @@ public class DragonOfLoowater {
         int end = array.length;
         while(change){
             change = false;
-            for (int i = start; i < array.length-1; i++) {
+            for (int i = start; i < end-1; i++) {
                 if (array[i] > array[i+1]){
                     int temp = array[i+1];
                     array[i+1] = array[i];
@@ -31,8 +31,8 @@ public class DragonOfLoowater {
             end--;
             if (!change) break;
             change = false;
-            for (int i = end - 1; i > 0; i--) {
-                if (array[i+1] > array[i]){
+            for (int i = end - 1; i > start; i--) {
+                if (array[i] > array[i+1]){
                     int temp = array[i+1];
                     array[i+1] = array[i];
                     array[i] = temp;
@@ -40,7 +40,9 @@ public class DragonOfLoowater {
                 }
             }
             start++;
+            if(start == end) break;
         }
+        for (int i = 0; i < array.length; i++) System.out.println(array[i]);
     }
     public static void main(String[] args) {
         int mission = 0;
@@ -53,6 +55,7 @@ public class DragonOfLoowater {
             for (int i = 0; i < numKnight; i++) knight[i] = scan.nextInt();
             sort(dragon);
             sort(knight);
+            for (int i = 0; i < numDragon; i++) System.out.println(dragon[i]);
             for (int i = 0; i < numKnight; i++) {
                 if(knight[i] >= dragon[cutOffNum]){
                     cost += knight[i];
