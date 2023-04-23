@@ -4,7 +4,8 @@ import java.util.Arrays;
 
 public class Fee {
 
-    static int[][] cost = {{60, 68, 85}, {77, 85, 106}, {94, 102, 128}, {115, 123, 153}, {135, 145, 180}};
+//    static int[][] cost = {{60, 68, 85}, {77, 85, 106}, {94, 102, 128}, {115, 123, 153}, {135, 145, 180}};
+    static int[][] cost = {{70, 80, 100}, {90, 100, 125}, {110, 120, 150}, {135, 145, 180}};
     public static int area(String delivery_address, String mailing_address) {
 
         String[] outer_island = {"澎湖", "金門", "馬祖", "東引", "烏坵", "綠島", "蘭嶼", "琉球"};
@@ -38,36 +39,54 @@ public class Fee {
         }
     }
 
-    public static int useSize(int size, String delivery_address, String mailing_address){
-        int address = area(delivery_address, mailing_address);;
+    public static int useSize(int size, float weight, String delivery_address, String mailing_address){
+        int address = area(delivery_address, mailing_address);
+        int total = 0;
+        int oversize = (int)(Math.ceil((size - 150)*1.0/10)/1.0);
+        int overwieght = (int)(Math.ceil((weight - 20)*1.0)/1.0);
+
         if (size <= 60){
-            return cost[0][address];
+            total += cost[0][address];
         } else if (size > 60 && size <= 90){
-            return cost[1][address];
+            total += cost[1][address];
         } else if (size > 90 && size <= 120){
-            return cost[2][address];
-        } else if (size > 120 && size <= 150){
-            return cost[3][address];
-        } else{
-            int oversize = (int)(Math.ceil((size - 150)*1.0/10)/1.0);
-            return (int)((Math.round((cost[4][address] + oversize)* 0.85 * 1.0)/1.0));
+            total += cost[2][address];
+        } else if (size > 120){
+            total += cost[3][address];
         }
+
+        if (oversize > 0) {
+            total += oversize * 10;
+        }
+        if (overwieght > 0) {
+            total += overwieght * 10;
+        }
+        return (int)((Math.round(total * 0.85 * 1.0)/1.0)); //Add 10 dollars for every 10 cm, not 1 dollar
     }
 
-    public static int useWeight(float weight, String delivery_address, String mailing_address){
-        int address = area(delivery_address, mailing_address);;
+    public static int useWeight(int size, float weight, String delivery_address, String mailing_address){
+        int address = area(delivery_address, mailing_address);
+        int total = 0;
+        int oversize = (int)(Math.ceil((size - 150)*1.0/10)/1.0);
+        int overwieght = (int)(Math.ceil((weight - 20)*1.0)/1.0);
+
         if (weight <= 5){
-            return cost[0][address];
+            total += cost[0][address];
         } else if (weight > 5 && weight <= 10){
-            return cost[1][address];
+            total += cost[1][address];
         } else if (weight > 10 && weight <= 15){
-            return cost[2][address];
-        } else if (weight > 15 && weight <= 20){
-            return cost[3][address];
-        } else{
-            int overwieght = (int)(Math.ceil((weight - 20)*1.0)/1.0);
-            return (int)((Math.round((cost[4][address] + overwieght)* 0.85 * 1.0)/1.0));
+            total += cost[2][address];
+        } else if (weight > 15){
+            total += cost[3][address];
         }
+
+        if (oversize > 0) {
+            total += oversize * 10;
+        }
+        if (overwieght > 0) {
+            total += overwieght * 10;
+        }
+        return (int)((Math.round(total * 0.85 * 1.0)/1.0)); //Add 10 dollars for every 10 cm, not 1 dollar
     }
 
 }
